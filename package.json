@@ -4,9 +4,14 @@
   "version": "0.1.0",
   "description": "Open-source, no-signup PDF and image tools that run entirely in your browser.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cott-king/PageSail.git"
+  },
+  "homepage": "https://github.com/cott-king/PageSail",
   "type": "module",
   "engines": {
-    "node": "^22.13.0 || ^24.0.0"
+    "node": "^22.13.0 || >=24"
   },
   "scripts": {
     "dev": "vite",

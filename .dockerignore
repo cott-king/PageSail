@@ -5,7 +5,6 @@ coverage
 test-results
 playwright-report
 blob-report
-public/licenses
 *.log
 .env
 .env.*
