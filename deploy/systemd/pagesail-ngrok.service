@@ -1,0 +1,26 @@
+# systemd unit that keeps the ngrok endpoint for PageSail running.
+# Replace <USER> with the Linux user that ran `ngrok config add-authtoken`.
+#
+#   sudo cp deploy/systemd/pagesail-ngrok.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now pagesail-ngrok
+#   journalctl -u pagesail-ngrok -f
+#
+# The package from ngrok's apt repository installs the binary to /usr/local/bin/ngrok
+# (check with `command -v ngrok` and adjust ExecStart if yours differs).
+[Unit]
+Description=ngrok endpoint for PageSail
+Wants=network-online.target docker.service
+After=network-online.target docker.service
+
+[Service]
+Type=simple
+User=<USER>
+ExecStart=/usr/local/bin/ngrok start --all --log stdout --config /home/<USER>/.config/ngrok/ngrok.yml --config /etc/pagesail/ngrok-endpoint.yml
+Restart=on-failure
+RestartSec=10
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

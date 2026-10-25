@@ -1,0 +1,14 @@
+.git
+node_modules
+dist
+coverage
+test-results
+playwright-report
+blob-report
+public/licenses
+*.log
+.env
+.env.*
+!.env.example
+.vscode
+.idea

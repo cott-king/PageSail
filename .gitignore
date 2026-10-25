@@ -147,3 +147,10 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# PageSail
+test-results/
+playwright-report/
+blob-report/
+/public/licenses/
+tests/e2e/.downloads/

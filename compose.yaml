@@ -1,0 +1,36 @@
+# PageSail on a single host (e.g. Raspberry Pi 5, Raspberry Pi OS 64-bit).
+#
+#   docker compose up -d --build
+#
+# The site is published on 127.0.0.1:8080 only. ngrok (running on the host) connects
+# to that address; nothing is exposed on the LAN unless you change the port mapping.
+services:
+  pagesail:
+    build:
+      context: .
+      args:
+        # Leave empty to use the defaults in src/config.ts.
+        VITE_REPO_URL: ${PAGESAIL_REPO_URL:-}
+        VITE_MAX_PDF_MB: ${PAGESAIL_MAX_PDF_MB:-}
+        VITE_MAX_IMAGE_MB: ${PAGESAIL_MAX_IMAGE_MB:-}
+        VITE_MAX_IMAGE_MEGAPIXELS: ${PAGESAIL_MAX_IMAGE_MEGAPIXELS:-}
+        VITE_MAX_RENDER_MEGAPIXELS: ${PAGESAIL_MAX_RENDER_MEGAPIXELS:-}
+        VITE_MAX_FILES: ${PAGESAIL_MAX_FILES:-}
+        VITE_HISTORY_STEPS: ${PAGESAIL_HISTORY_STEPS:-}
+    image: pagesail:local
+    container_name: pagesail
+    ports:
+      - "127.0.0.1:${PAGESAIL_PORT:-8080}:8080"
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

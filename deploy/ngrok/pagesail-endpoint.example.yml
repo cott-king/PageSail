@@ -1,0 +1,18 @@
+# ngrok agent endpoint for PageSail (ngrok agent config v3).
+#
+# This file contains NO credentials. Your authtoken stays in your private config,
+# created with `ngrok config add-authtoken <TOKEN>` (~/.config/ngrok/ngrok.yml).
+# Both files are merged when passed with two --config flags:
+#
+#   ngrok start --all --config ~/.config/ngrok/ngrok.yml --config /etc/pagesail/ngrok-endpoint.yml
+#
+# Validated with: ngrok config check --config ~/.config/ngrok/ngrok.yml --config <this file>
+version: 3
+endpoints:
+  - name: pagesail
+    # Optional: your reserved/static domain from the ngrok dashboard. Remove the
+    # `url:` line to get a random URL on every start.
+    url: https://<your-domain>.ngrok-free.app
+    upstream:
+      # PageSail container, published on the Pi's loopback interface only.
+      url: http://127.0.0.1:8080
